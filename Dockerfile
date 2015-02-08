@@ -1,24 +1,14 @@
-# start with a base image
-FROM ubuntu:14.10
-MAINTAINER Real Python <info@realpython.com>
+FROM ubuntu:14.04
 
-# install dependencies
-RUN apt-get update
-RUN apt-get install -y nginx
-RUN apt-get install -y supervisor
-RUN apt-get install -y python3-pip
-RUN pip3 install uwsgi flask
+RUN apt-get update -qq
+RUN apt-get install -y socat git software-properties-common python-software-properties postgresql-client-9.3 postgresql-client-common
 
-# update working directories
-ADD ./app /app
-ADD ./config /config
+RUN apt-get update -qq
+RUN apt-get install -y python-pip python-psycopg2 libpq-dev python2.7-dev gunicorn libmagic1
 
-# setup config
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-RUN rm /etc/nginx/sites-enabled/default
+RUN mkdir -p /usr/src
+COPY . /usr/src/
+RUN pip install -r /usr/src/requirements.txt
 
-RUN ln -s /config/nginx.conf /etc/nginx/sites-enabled/
-RUN ln -s /config/supervisor.conf /etc/supervisor/conf.d/
-
-EXPOSE 80
-CMD ["supervisord", "-n"]
+WORKDIR /usr/src/app
+EXPOSE 5000
