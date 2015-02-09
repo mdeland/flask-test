@@ -9,7 +9,8 @@ Steps to setup linked development and digit ocean environment:
 + install [docker-compose](https://github.com/docker/fig/releases) (used to be called fig)
 + setup your `docker-compose.yml` file
 + make sure the `Dockerfile` is the way you want it to describe the python container
-+ run the build process: `docker-compose up`
-+ make changes, test, run `docker-compose build` and then `docker-compose up`
-+ to be able to debug using pdb, run `docker-compose run --service-ports web` (or the name of the python service)
-+ to run the database script, from the dbjob directory run `docker build --rm -t dbjob .` then `docker run -it --link=flasktest_db_1:postgres dbjob reset.sh` 
++ to run the database script (which will have to be before initial run, in this example) run `docker-compose up db` to start the database, from the dbjob directory run `docker build --rm -t dbjob .` then `docker run -it --link=flasktest_db_1:postgres dbjob reset.sh` 
++ run the build process: `docker-compose up`.  To run in the background use the `-d` flag
++ make changes, save, test, and if necessary, run `docker-compose build` and then `docker-compose up`
++ to be able to debug using pdb, run instead with `docker-compose run --service-ports web` (or the name of the python service)
+
