@@ -5,7 +5,7 @@ Steps to setup linked development and digit ocean environment:
 + Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 + `brew install boot2docker`
 + run: `boot2docker start`
-+ set the `DOCKER_HOST` environment variables it asks you too (can also copy them to `.bashrc`)
++ set the `DOCKER_HOST` environment variables it asks you to (can also copy them to `.bashrc`)
 + install [docker-compose](https://github.com/docker/fig/releases) (used to be called fig)
 + setup your `docker-compose.yml` file
 + make sure the `Dockerfile` is the way you want it to describe the python container
